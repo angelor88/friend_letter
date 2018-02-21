@@ -9,8 +9,8 @@ namespace FriendLetter.Controllers
         [Route("/Goodbye")] //This line of code is a route decorator
         public string Goodbye(){ return "Goodbye Friend.";}
 
-        [Produces("text/html")] //This is another decorator 
-        [Route("/letter")]
+        [Produces("text/html")] //The decorator [Produces("text/html")] tells our server that the route will return text that will be rendered as HTML.
+        [Route("/")]
         public string Letter()
         {
           return
