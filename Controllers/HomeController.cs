@@ -1,36 +1,47 @@
 using Microsoft.AspNetCore.Mvc;
+using FriendLetter;
+using FriendLetter.Models;
+
 
 namespace FriendLetter.Controllers
 {
     public class HomeController : Controller
-    {   [Route("/hello")] //This a route decorator
-        public string Hello() { return "Hello friend!"; }
-
-        [Route("/Goodbye")] //This line of code is a route decorator
-        public string Goodbye(){ return "Goodbye Friend.";}
-
-        [Produces("text/html")] //The decorator [Produces("text/html")] tells our server that the route will return text that will be rendered as HTML.
-        [Route("/")]
-        public string Letter()
+    {
+      [Route("/letter")]
+        public ActionResult Letter()
         {
-          return
-          "<!DOCTYPE html>" +
-          "<html>" +
-          "<head>" +
-            "<title>Hello Friend!</title>" +
-            "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>" +
-          "</head>" +
-          "<body>" +
-            "<h1>Hello From Afar</h1>" +
-            "<p>Dear Friend,</p>" +
-            "<p>How are you? I hope that you are having a nice weekend. I'm learning programming while in Iceland! </p>" +
-            "<p>Friend, you would not believe how cold it is here. I should have gone to Hawaii instead.</p>" +
-            "<p>But I like programming a lot, so I've got that going for me. </p>" +
-            "<p>Looking forward to seeing you soon. I'll bring you back a souvenir. </p>" +
-            "<p>Cheers,</p>" +
-            "<p>Travel Enthusiast Jane</p>" +
-          "</body>" +
-          "</html>";
+          return View();
         }
+
+      [Route("/journal")]
+      public ActionResult Journal()
+      {
+        return View();
+      }
+      // [Route("/")]
+      // public ActionResult Hello()
+      // {
+      //   LetterVariable myLetterVariable = new LetterVariable();
+      //   myLetterVariable.SetRecipient("Angelo");
+      //   myLetterVariable.SetSender("Jara");
+      //
+      //   return View(myLetterVariable);
+      // }
+
+      [Route("/form")]
+     public ActionResult Form()
+     {
+       return View();
+     }
+
+      [Route("/greeting_card")]
+      public ActionResult GreetingCard()
+      {
+          LetterVariable myLetterVariable = new LetterVariable();
+          myLetterVariable.SetRecipient(Request.Query["recipient"]);
+          myLetterVariable.SetSender(Request.Query["sender"]);
+          return View("Hello", myLetterVariable);
+      }
+
     }
 }
